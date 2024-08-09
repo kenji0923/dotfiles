@@ -1,0 +1,131 @@
+set nocompatible
+
+if has('win32')
+    let s:vim_base_dir = expand('~/_vim/')
+else
+    let s:vim_base_dir = expand('~/.vim/')
+endif
+
+" Display setting
+set title
+set laststatus=2
+set number
+set visualbell 
+set t_vb=
+colorscheme koehler
+
+" Editing
+set encoding=utf-8
+set tabstop=8
+set softtabstop=4 
+set shiftwidth=4
+set noexpandtab
+set backspace=indent,eol,start
+
+" Operation
+set wildmenu
+set wildmode=longest:full
+
+" Type associated edit
+autocmd FileType text setlocal textwidth=0
+
+" Search
+set wrapscan
+set incsearch
+set hlsearch
+
+" Backup, undo, tmp
+set backup
+execute 'set backupdir=' .. s:vim_base_dir .. 'backup'
+call mkdir(&backupdir, "p")
+if has('persistent_undo')
+    set undofile
+    execute 'set undodir=' .. s:vim_base_dir .. 'undo'
+    call mkdir(&undodir, "p")
+endif
+set swapfile
+execute 'set directory=' .. s:vim_base_dir .. 'tmp'
+call mkdir(&directory, "p")
+
+" Mapping
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j 
+nnoremap gk k
+
+" dpp
+
+" Hooks files in the 'plugin_dpp' directory with the name of '{plugin-name}.vim' are automatically added
+const s:dpp_config = s:vim_base_dir .. 'plugin_dpp/dpp.ts'
+
+" Set dpp base path (required)
+const s:dpp_base = expand('~/.cache/dpp/')
+
+" Set dpp source path (required)
+const s:denops_repo = 'vim-denops/denops.vim'
+const s:dpp_repo = 'Shougo/dpp.vim'
+
+const s:dpp_manual_repo = [
+	    \ s:denops_repo,
+	    \ s:dpp_repo,
+	    \ ]
+
+const s:dpp_addon_repo = [
+	    \ 'Shougo/dpp-protocol-git',
+	    \ 'Shougo/dpp-ext-toml',
+	    \ 'Shougo/dpp-ext-installer',
+	    \ ]
+
+const s:dpp_manual_repo_source_url = 'github.com/'
+
+function! s:dpp_get_repositry_path(repositry) abort
+    return s:dpp_base .. 'repos/' .. s:dpp_manual_repo_source_url .. a:repositry
+endfunction
+
+function! s:dpp_clone_nonexisting_repo_to_base(repositries) abort
+    for repositry in a:repositries
+	let repositry_path = s:dpp_get_repositry_path(repositry)
+	if ! isdirectory(repositry_path)
+	    call mkdir(expand(repositry_path .. ':p:h'), "p")
+	    call system('git clone https://' .. s:dpp_manual_repo_source_url .. repositry .. ' ' .. repositry_path)
+	endif
+    endfor
+endfunction
+
+call s:dpp_clone_nonexisting_repo_to_base(s:dpp_manual_repo + s:dpp_addon_repo)
+
+const s:denops_src = s:dpp_get_repositry_path(s:denops_repo)
+const s:dpp_src = s:dpp_get_repositry_path(s:dpp_repo)
+
+" Set dpp runtime path (required)
+execute 'set runtimepath^=' .. s:dpp_src
+execute 'helptags ' .. s:dpp_src .. '/doc'
+
+if s:dpp_base->dpp#min#load_state()
+    for dpp_addon_path in s:dpp_addon_repo
+	let repositry_path = s:dpp_get_repositry_path(dpp_addon_path)
+	execute 'set runtimepath^=' .. repositry_path
+    endfor
+    " dpp addons must be managed by dpp after creating a state
+    execute 'set runtimepath^=' .. s:denops_src
+    autocmd User DenopsReady call dpp#make_state(s:dpp_base, s:dpp_config)
+endif
+
+" Custom setting
+augroup dpp_custom
+    autocmd! BufWritePost *.vim,*.ts,*.toml call dpp#check_files()
+    autocmd! User Dpp:makeStatePost echom 'dpp has made a state'
+augroup END
+
+command! DppClearState call dpp#clear_state()
+command! DppMakeState call dpp#make_state(s:dpp_base, s:dpp_config)
+command! DppLoadState call dpp#min#load_state(s:dpp_base)
+command! DppInstall call dpp#async_ext_action('installer', 'install')
+" command! DppUpgrade execute '!. ~/.vim/plugin_dpp/upgrade_dpp.sh ' .. s:dpp_src
+command! DppUpdate call dpp#async_ext_action('installer', 'update')
+
+filetype indent plugin on
+
+if has('syntax')
+    syntax on
+endif

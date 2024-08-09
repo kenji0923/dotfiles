@@ -1,0 +1,12 @@
+#/bin/sh
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+yabai -m signal --add event=space_changed action="sh ~/.yabai/destroy_empty_space.sh"
+yabai -m signal --add event=window_destroyed action="sh ~/.yabai/destroy_empty_space.sh"
+
+sudo yabai --load-sa
+
+yabai -m config layout bsp
+
+yabai -m rule --add app="^root.exe$" manage=off
+yabai -m rule --add app="^LINE$" title!="^LINE$" manage=off

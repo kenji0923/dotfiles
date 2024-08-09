@@ -1,0 +1,151 @@
+{
+  "title": "Key map modification",
+  "rules": [
+    {
+      "description": "Control+space to launch spotlight",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": ["left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": ["left_command"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Change Kana to S-F1",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "japanese_kana"
+          },
+          "to": [
+            {
+              "modifiers": ["shift"],
+              "key_code": "f1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$", "^org.vim.MacVim$"],
+              "file_paths": ["^/usr/local/bin/alacritty$"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Change Eisu to S-F2",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "japanese_eisuu"
+          },
+          "to": [
+            {
+              "modifiers": ["shift"],
+              "key_code": "f2"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$", "^org.vim.MacVim$"],
+              "file_paths": ["^/usr/local/bin/alacritty$"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Change control-kana to kana",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "japanese_kana",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "japanese_kana"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$", "^org.vim.MacVim$"],
+              "file_paths": ["^/usr/local/bin/alacritty$"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Change control-eisuu to eisuu",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "japanese_eisuu",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$", "^org.vim.MacVim$"],
+              "file_paths": ["^/usr/local/bin/alacritty$"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Change control-j to j",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "j"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$", "^org.vim.MacVim$"],
+              "file_paths": ["^/usr/local/bin/alacritty$"]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}

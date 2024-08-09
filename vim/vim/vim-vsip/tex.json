@@ -1,0 +1,14 @@
+{
+    "Graphics": {
+	"prefix": ["IGRA"],
+	"body": [
+	    "\\begin{figure}",
+	    "\t\\centering",
+	    "\t\\includegraphics[width=${1:13cm}]{${2:file}}",
+	    "\t\\caption{${3:caption}}",
+	    "\t\\label{fig:${4:label}}",
+	    "\\end{figure}"
+	],
+	"description": "Include graphics"
+    }
+}

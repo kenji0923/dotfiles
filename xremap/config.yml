@@ -1,0 +1,19 @@
+modmap:
+  - name: capslock to ctrl
+    remap:
+      capslock: control_l
+  - name: swap alt_ and super_l
+    remap:
+      alt_l: super_l
+      super_l: alt_l
+keymap:
+  - name: input method control for vim with skkeleton
+    exact_match: true
+    application:
+      only: [Alacritty.Alacritty, gvim.Gvim]
+    remap:
+      henkan: SHIFT-F1
+      muhenkan: SHIFT-F2
+      C-henkan: henkan
+      C-muhenkan: muhenkan
+      C-j: j

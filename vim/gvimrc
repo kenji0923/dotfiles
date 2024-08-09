@@ -1,0 +1,10 @@
+if has('mac')
+    set guifont=PlemolJP\ Console\ Regular:h13
+    set guifontwide=PlemolJP\ Console\ Regular:h13
+elseif has('unix')
+elseif has('win32')
+    set guifont=PlemolJP\ Console:h13
+    set guifontwide=PlemolJP\ Console:h13
+endif
+set guioptions-=T
+set guicursor+=a:blinkon0

@@ -1,0 +1,11 @@
+font:
+  normal:
+    family: 'PlemolJP Console'
+    Style: 'Regular'
+  bold:
+    family: 'PlemolJP Console'
+    Style: 'Regular'
+  italic:
+    family: 'PlemolJP Console'
+    Style: 'Regular'
+  size: 13
