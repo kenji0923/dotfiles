@@ -22,7 +22,7 @@ function! s:skkeleton_init() abort
     set statusline=%<%f\ %h%m%r\ %{skk_statusline_mode_strings[skkeleton#mode()]}%=%-14.(%l,%c%V%)\ %P
 
     call skkeleton#config({
-		\ 'userDictionary': '~/.skk/user_dict/skk-jisyo.utf8',
+		\ 'userDictionary': '~/.skk/user_dict/skk-jisyo_skkeleton.utf8',
 		\ 'globalDictionaries': [
 		\   '~/.skk/SKK-JISYO.L',
 		\   '~/.skk/SKK-JISYO.fullname',
