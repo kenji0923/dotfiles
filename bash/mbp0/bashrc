@@ -1,0 +1,20 @@
+# Link dotfiles/bash to ~/.bash
+
+. ~/.bash/common/set_variable.sh
+
+. ~/.bash/common/bashrc
+
+. "$HOME/.cargo/env"
+
+alias doxygen='/Applications/Doxygen.app/Contents/Resources/doxygen'
+
+export PATH=$HOME/bin:/Applications/MacVim.app/Contents/bin:$PATH
+export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/libomp/lib"
+export CPPFLAGS="-I/usr/local/opt/libomp/include"
+
+export PETSC_DIR=/usr/local/petsc
+export PETSC_ARCH_DEBUG=arch-darwin-c-debug
+export PETSC_ARCH_OPT=arch-darwin-c-opt
+export PETSC_ARCH=$PETSC_ARCH_OPT

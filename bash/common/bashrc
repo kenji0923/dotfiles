@@ -1,0 +1,19 @@
+# bashrc common for all platforms
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+PS1='[\u@\h \W]\$ '
+
+export EDITOR="vi"
+export VISUAL="vi"
+
+alias ls='ls --color=always'
+alias grep='grep --color=always'
+ 
+. ~/.bash/common/set_ssh_agent.sh
+. ~/.bash/common/export_tmux_helper.sh
+
+if [[ ! -n $TMUX ]]; then
+  tmux new-session
+fi
