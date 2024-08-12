@@ -1,12 +1,23 @@
 #/bin/sh
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-yabai -m signal --add event=space_changed action="sh ~/.yabai/destroy_empty_space.sh"
-yabai -m signal --add event=window_destroyed action="sh ~/.yabai/destroy_empty_space.sh"
+# yabai -m signal --add event=space_changed action="sh ~/.yabai/destroy_empty_space.sh"
+# yabai -m signal --add event=window_destroyed action="sh ~/.yabai/destroy_empty_space.sh"
 
 sudo yabai --load-sa
 
 yabai -m config layout bsp
 
+yabai -m config window_origin_display focused
+yabai -m config window_animation_duration 0.0
+
+yabai -m config top_padding 2
+yabai -m config bottom_padding 2
+yabai -m config left_padding 2
+yabai -m config right_padding 2
+yabai -m config window_gap 2
+
 yabai -m rule --add app="^root.exe$" manage=off
+yabai -m rule --add app="^Inkscape$" manage=off
 yabai -m rule --add app="^LINE$" title!="^LINE$" manage=off
+yabai -m rule --add app="^zoom.us$" manage=off
