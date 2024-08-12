@@ -1,0 +1,3 @@
+import = [
+  "~/.alacritty/base.toml"
+] 
