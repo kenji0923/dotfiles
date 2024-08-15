@@ -1,14 +1,61 @@
 {
+    "Block": {
+	"prefix": ["beginblock"],
+	"body": [
+	    "\\begin{block}",
+	    "    $1",
+	    "\\end{block}"
+	],
+	"description": "Add block"
+    },
     "Graphics": {
-	"prefix": ["IGRA"],
+	"prefix": ["beginfigincgra"],
 	"body": [
 	    "\\begin{figure}",
-	    "\t\\centering",
-	    "\t\\includegraphics[width=${1:13cm}]{${2:file}}",
-	    "\t\\caption{${3:caption}}",
-	    "\t\\label{fig:${4:label}}",
+	    "    \\centering",
+	    "    \\includegraphics[width=$1]{$2}",
+	    "    \\caption{$3}",
+	    "    \\label{fig:$4}",
 	    "\\end{figure}"
 	],
 	"description": "Include graphics"
+    },
+    "BeamerFrame": {
+	"prefix": ["beginfra"],
+	"body": [
+	    "\\begin{frame}{${1:TITLE}}",
+	    "",
+	    "",
+	    "    \\begin{columns}",
+	    "",
+	    "\t\\begin{column}{0.50\\textwidth}",
+	    "% \t    \\begin{figure}",
+	    "% \t\t\\includegraphics[width=0.9\\textwidth]{fig/}",
+	    "% \t\t\\caption{}",
+	    "% \t    \\end{figure}",
+	    "\t\\end{column}",
+	    "",
+	    "\t\\begin{column}{0.50\\textwidth}",
+	    "% \t    \\begin{figure}",
+	    "% \t\t\\includegraphics[width=0.9\\textwidth]{fig/}",
+	    "% \t\t\\caption{}",
+	    "% \t    \\end{figure}",
+	    "\t\\end{column}",
+	    "",
+	    "    \\end{columns}",
+	    "",
+	    "",
+	    "\\end{frame}"
+	],
+	"description": "Add beamer frame"
+    },
+    "BeamerColorboxPostit": {
+	"prefix": ["beginpostit"],
+	"body": [
+	    "\\begin{beamercolorbox}[center,rounded=true,sep=0.25em]{postit}",
+	    "    $1",
+	    "\\end{beamercolorbox}"
+	],
+	"description": "Add beamer colorbox postit"
     }
 }
