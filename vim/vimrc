@@ -21,6 +21,8 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set backspace=indent,eol,start
+set shellslash
+set isfname-={,}
 
 " Operation
 set wildmenu
@@ -86,7 +88,7 @@ function! s:dpp_clone_nonexisting_repo_to_base(repositries) abort
     for repositry in a:repositries
 	let repositry_path = s:dpp_get_repositry_path(repositry)
 	if ! isdirectory(repositry_path)
-	    call mkdir(expand(repositry_path .. ':p:h'), "p")
+	    call mkdir(expand(repositry_path), "p")
 	    call system('git clone https://' .. s:dpp_manual_repo_source_url .. repositry .. ' ' .. repositry_path)
 	endif
     endfor
