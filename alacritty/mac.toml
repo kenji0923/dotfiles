@@ -1,3 +1,4 @@
-import = [
-  "~/.alacritty/base.toml"
-] 
+[general]
+    import = [
+      "~/.alacritty/base.toml"
+    ] 
