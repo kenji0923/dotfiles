@@ -18,12 +18,6 @@ merge=false
 
 # Edit support
 
-# [[plugins]]
-# repo="prabirshrestha/asyncomplete.vim"
-
-# [[plugins]]
-# repo="prabirshrestha/asyncomplete-lsp.vim"
-
 [[plugins]]
 repo="Shougo/ddc.vim"
 
@@ -98,6 +92,12 @@ repo="Shougo/ddu-kind-file"
 repo="Shougo/ddu-filter-matcher_substring"
 
 
+# Git
+
+[[plugins]]
+repo="lambdalisue/vim-gin"
+
+
 # LSP
 
 [[plugins]]
@@ -117,12 +117,3 @@ repo="lervag/vimtex"
 
 [[plugins]]
 repo="kenji0923/cern_root.vim"
-
-# [[plugins]]
-# repo="ilyachur/cmake4vim"
-
-
-# Others
-
-# [[plugins]]
-# repo="tpope/vim-dispatch"
