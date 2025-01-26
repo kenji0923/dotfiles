@@ -5,6 +5,7 @@
 . ~/.bash/common/bashrc
 
 . "$HOME/.cargo/env"
+[ -f "/Users/kshu/.ghcup/env" ] && . "/Users/kshu/.ghcup/env" # ghcup-env
 
 alias doxygen='/Applications/Doxygen.app/Contents/Resources/doxygen'
 
@@ -13,6 +14,10 @@ export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
 export LDFLAGS="-L/usr/local/opt/libomp/lib"
 export CPPFLAGS="-I/usr/local/opt/libomp/include"
+
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl/lib $LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/openssl/include $CPPFLAGS"
 
 export PETSC_DIR=/usr/local/petsc
 export PETSC_ARCH_DEBUG=arch-darwin-c-debug
