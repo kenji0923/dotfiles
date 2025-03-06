@@ -11,7 +11,7 @@ export VISUAL="vi"
 alias ls='ls --color=always'
 alias grep='grep --color=always'
  
-. ~/.bash/common/set_ssh_agent.sh
+# . ~/.bash/common/set_ssh_agent.sh
 . ~/.bash/common/export_tmux_helper.sh
 
 if [[ ! -n $TMUX ]]; then
