@@ -12,6 +12,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/usr/local/root/bin:/usr/local/vim/bin:$PATH
+export PATH=~/local/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
 
 . "$HOME/.deno/env"
+
+# For VcXsrv
+export DISPLAY=`hostname`.mshome.net:0.0
+export LIBGL_ALWAYS_INDIRECT=true
+export LIBGL_ALWAYS_SOFTWARE=true
