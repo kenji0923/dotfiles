@@ -14,6 +14,10 @@ fi
 
 export PATH=~/local/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
 
+export PETSC_DIR=/usr/local/petsc
+export PETSC_ARCH_DEBUG=arch-linux-c-debug
+export PETSC_ARCH_OPT=arch-linux-c-opt 
+
 . "$HOME/.deno/env"
 
 # For VcXsrv
