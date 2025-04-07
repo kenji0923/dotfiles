@@ -17,6 +17,7 @@ export PATH=~/local/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
 export PETSC_DIR=/usr/local/petsc
 export PETSC_ARCH_DEBUG=arch-linux-c-debug
 export PETSC_ARCH_OPT=arch-linux-c-opt 
+export SLEPC_DIR=/usr/local/slepc
 
 . "$HOME/.deno/env"
 
@@ -24,3 +25,5 @@ export PETSC_ARCH_OPT=arch-linux-c-opt
 export DISPLAY=`hostname`.mshome.net:0.0
 export LIBGL_ALWAYS_INDIRECT=true
 export LIBGL_ALWAYS_SOFTWARE=true
+
+eval $(~/local/bin/wsl2-ssh-agent)
