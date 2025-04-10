@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export PETSC_ARCH=arch-linux-c-debug
+
+./configure --with-fortran-bindings=0 --with-debugging=1 --with-scalar-type=complex --with-precision=double –-with-64-bit-indices --with-openmp PETSC_ARCH=arch-linux-c-debug
