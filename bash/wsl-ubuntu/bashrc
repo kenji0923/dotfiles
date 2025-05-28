@@ -22,7 +22,8 @@ export SLEPC_DIR=/usr/local/slepc
 . "$HOME/.deno/env"
 
 # For VcXsrv
-export DISPLAY=`ip route | grep default | awk '{ print $3 }'`:0.0
+# Set wsl network to the mirroring mode
+export DISPLAY=localhost:0.0
 export LIBGL_ALWAYS_INDIRECT=true
 export LIBGL_ALWAYS_SOFTWARE=true
 
