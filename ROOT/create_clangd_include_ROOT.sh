@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+if [ -f .clangd ];then
+    echo ".clangd file already exists"
+else
+    touch .clangd
+    echo "CompileFlags:" >> .clangd
+    options=`root-config --cflags`
+    mod_options=`echo $options | sed -e 's/ /, /g'`
+    echo "  Add: [$mod_options]" >> .clangd
+fi
