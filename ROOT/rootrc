@@ -1,3 +1,4 @@
 Canvas.ShowEventStatus: true
 Canvas.ShowToolBar:     false
 Canvas.ShowEditor:      true
+Browser.Name:		TRootBrowser
