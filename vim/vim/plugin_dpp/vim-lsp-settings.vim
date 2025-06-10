@@ -6,6 +6,7 @@ let g:lsp_settings = {
 \	    'pylsp': {
 \	        'plugins': {
 \		    'pycodestyle': {
+\			'enabled': v:false,
 \			'ignore': ['E501']
 \		    }
 \		 }
