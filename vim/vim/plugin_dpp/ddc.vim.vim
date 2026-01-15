@@ -13,9 +13,9 @@ call ddc#custom#patch_global('sourceOptions', {
 	    \	    'mark': 'aro',
 	    \	},
 	    \	'lsp': {
+	    \	    'isVolatile': v:true,
 	    \	    'mark': 'lsp',
 	    \	    'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-	    \	    'sorters': ['sorter_lsp-kind'],
 	    \	},
 	    \	'vsnip': {
 	    \	    'mark': 'vsnip',
