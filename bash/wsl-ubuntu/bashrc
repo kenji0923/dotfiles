@@ -24,7 +24,7 @@ export SLEPC_DIR=/usr/local/slepc
 # For VcXsrv
 # Set wsl network to the mirroring mode
 export DISPLAY=localhost:0.0
-export LIBGL_ALWAYS_INDIRECT=true
-export LIBGL_ALWAYS_SOFTWARE=true
+# export LIBGL_ALWAYS_INDIRECT=true
+# export LIBGL_ALWAYS_SOFTWARE=true
 
 eval $(~/local/bin/wsl2-ssh-agent)
