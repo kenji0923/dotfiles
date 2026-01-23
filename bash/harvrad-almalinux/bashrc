@@ -12,6 +12,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/usr/local/vim/bin:$PATH
+export PATH=~/.node/gen/node_modules/.bin:/usr/local/vim/bin:~/.local/bin:/home/kshu/.dotnet/tools:$PATH
 
 . "$HOME/.deno/env"
