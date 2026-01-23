@@ -1,0 +1,6 @@
+[[plugins]]
+repo="rebelot/kanagawa.nvim"
+
+
+[[plugins]]
+repo="nvim-treesitter/nvim-treesitter"

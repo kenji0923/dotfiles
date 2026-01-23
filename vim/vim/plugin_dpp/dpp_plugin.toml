@@ -12,6 +12,10 @@ repo="Shougo/dpp-ext-toml"
 merge=false
 
 [[plugins]]
+repo="Shougo/dpp-ext-lazy"
+merge=false
+
+[[plugins]]
 repo="Shougo/dpp-ext-installer"
 merge=false
 
