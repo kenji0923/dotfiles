@@ -1,3 +1,8 @@
+if has('nvim')
+    filetype plugin indent on
+    syntax on
+endif
+
 set nocompatible
 
 if has('win32')
@@ -126,8 +131,9 @@ command! DppInstall call dpp#async_ext_action('installer', 'install')
 " command! DppUpgrade execute '!. ~/.vim/plugin_dpp/upgrade_dpp.sh ' .. s:dpp_src
 command! DppUpdate call dpp#async_ext_action('installer', 'update')
 
-filetype indent plugin on
-
-if has('syntax')
-    syntax on
+if !has('nvim')
+    filetype indent plugin on
+    if has('syntax')
+	syntax on
+    endif
 endif
