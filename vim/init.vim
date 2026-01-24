@@ -3,4 +3,4 @@ let &packpath = &runtimepath
 source ~/.vimrc
 
 set termguicolors
-colorscheme kanagawa
+colorscheme kanagawa-dragon

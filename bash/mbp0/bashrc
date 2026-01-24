@@ -1,7 +1,5 @@
 # Link dotfiles/bash to ~/.bash
 
-. ~/.bash/common/set_variable.sh
-
 . ~/.bash/common/bashrc
 
 . "$HOME/.cargo/env"

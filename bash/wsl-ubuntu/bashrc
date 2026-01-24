@@ -3,7 +3,9 @@
 # Remove Windows paths from PATH to improve completion speed
 PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '^/mnt/c' | tr '\n' ':' | sed 's/:$//')
 
-. ~/.bash/common/set_variable.sh
+export PATH=~/local/bin:/usr/local/tmux/bin:/usr/local/neovim/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
+
+alias vim=nvim
 
 . ~/.bash/common/bashrc
 
@@ -14,8 +16,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-export PATH=~/local/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
 
 export PETSC_DIR=/usr/local/petsc
 export PETSC_ARCH_DEBUG=arch-linux-c-debug

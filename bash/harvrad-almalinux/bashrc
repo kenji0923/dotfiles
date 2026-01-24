@@ -1,6 +1,8 @@
 # Link dotfiles/bash to ~/.bash
 
-. ~/.bash/common/set_variable.sh
+export PATH=~/.node/gen/node_modules/.bin:/usr/local/neovim/bin:/usr/local/vim/bin:~/.local/bin:/home/kshu/.dotnet/tools:$PATH
+
+alias vim=nvim
 
 . ~/.bash/common/bashrc
 
@@ -12,8 +14,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=~/.node/gen/node_modules/.bin:/usr/local/neovim/bin:/usr/local/vim/bin:~/.local/bin:/home/kshu/.dotnet/tools:$PATH
-
 . "$HOME/.deno/env"
-
-alias vim=nvim
