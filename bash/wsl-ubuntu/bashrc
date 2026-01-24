@@ -1,5 +1,8 @@
 # Link dotfiles/bash to ~/.bash
 
+# Remove Windows paths from PATH to improve completion speed
+PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '^/mnt/c' | tr '\n' ':' | sed 's/:$//')
+
 . ~/.bash/common/set_variable.sh
 
 . ~/.bash/common/bashrc
@@ -28,3 +31,17 @@ export DISPLAY=localhost:0.0
 # export LIBGL_ALWAYS_SOFTWARE=true
 
 eval $(~/local/bin/wsl2-ssh-agent)
+
+export NVM_DIR="$HOME/.nvm"
+nvm_lazy_load() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    if [ -n "$1" ]; then
+        "$@"
+    fi
+}
+
+for cmd in nvm node npm npx; do
+    eval "$cmd() { nvm_lazy_load $cmd \"\$@\"; }"
+done
