@@ -66,7 +66,14 @@ export class Config extends BaseConfig {
 	// Load toml plugins
 
 	const tomlFiles = [
-	    { path: path.join(config_directory, "dpp_plugin.toml"), lazy: false },
+	    {
+		path: path.join(config_directory, "dpp_plugin.toml"),
+		lazy: false
+	    },
+	    {
+		path: path.join(config_directory, "dpp_plugin_lazy.toml"),
+		lazy: true
+	    }
 	]
 
 	if (is_nvim) {
@@ -85,46 +92,47 @@ export class Config extends BaseConfig {
 	] = await args.denops.dispatcher.getExt(
 	    "toml",
 	) as [TomlExt | undefined, ExtOptions, TomlParams];
+	{
+	    const action = tomlExt.actions.load;
 
-	const action = tomlExt.actions.load;
-
-	const tomlPromises = tomlFiles.map((tomlFile) =>
-	      action.callback({
-		  denops: args.denops,
-		  context,
-		  options,
-		  protocols,
-		  extOptions: tomlOptions,
-		  extParams: tomlParams,
-		  actionParams: {
-		      path: tomlFile.path,
-		      options: {
-			  lazy: tomlFile.lazy,
+	    const tomlPromises = tomlFiles.map((tomlFile) =>
+		  action.callback({
+		      denops: args.denops,
+		      context,
+		      options,
+		      protocols,
+		      extOptions: tomlOptions,
+		      extParams: tomlParams,
+		      actionParams: {
+			  path: tomlFile.path,
+			  options: {
+			      lazy: tomlFile.lazy,
+			  },
 		      },
-		  },
-	      })
-	 );
+		  })
+	     );
 
-	 const tomls = await Promise.all(tomlPromises);
+	    const tomls = await Promise.all(tomlPromises);
 
-	 // Merge toml results
-	 for (const toml of tomls) {
-	     for (const plugin of toml.plugins ?? []) {
-		 recordPlugins[plugin.name] = plugin;
-	     }
+	    // Merge toml results
+	    for (const toml of tomls) {
+		for (const plugin of toml.plugins ?? []) {
+		    recordPlugins[plugin.name] = plugin;
+		}
 
-	     if (toml.ftplugins) {
-		 mergeFtplugins(ftplugins, toml.ftplugins);
-	     }
+		if (toml.ftplugins) {
+		    mergeFtplugins(ftplugins, toml.ftplugins);
+		}
 
-	     if (toml.multiple_hooks) {
-		 multipleHooks = multipleHooks.concat(toml.multiple_hooks);
-	     }
+		if (toml.multiple_hooks) {
+		    multipleHooks = multipleHooks.concat(toml.multiple_hooks);
+		}
 
-	     if (toml.hooks_file) {
-		 hooksFiles.push(toml.hooks_file);
-	     }
-	 }
+		if (toml.hooks_file) {
+		    hooksFiles.push(toml.hooks_file);
+		}
+	    }
+	}
 
 
 	const [lazyExt, lazyOptions, lazyParams]: [
@@ -134,8 +142,10 @@ export class Config extends BaseConfig {
 	] = await args.denops.dispatcher.getExt(
 	    "lazy",
 	) as [LazyExt | undefined, ExtOptions, LazyParams];
+
 	let lazyResult: LazyMakeStateResult | undefined = undefined;
-	if (lazyExt) {
+
+	{
 	    const action = lazyExt.actions.makeState;
 
 	    lazyResult = await action.callback({
@@ -174,87 +184,5 @@ export class Config extends BaseConfig {
 	    plugins: lazyResult?.plugins ?? [],
 	    stateLines: lazyResult?.stateLines ?? [],
 	};
-
-
-	// const check_files = new Map([
-	//     [ "config", path.join(config_directory, "dpp.ts") ],
-	//     [ "toml", path.join(config_directory, "dpp_plugin.toml") ]
-	// ]);
-	// 
-	// if (is_nvim) {
-	//     check_files.set("toml_nvim", path.join(config_directory, "dpp_plugin_nvim.toml"));
-	// }
-	// 
-	// // Load toml plugins
-	// const tomls: Toml[] = [];
-	// 
-	// const load_toml = async (target: string): Promise<void> => {
-	//     const toml = await args.dpp.extAction(
-	// 	args.denops,
-	// 	context,
-	// 	options,
-	// 	"toml",
-	// 	"load",
-	// 	{
-	// 	    path: check_files.get(target),
-	// 	    options: {
-	// 		lazy: false,
-	// 	    },
-	// 	},
-	//     ) as Toml | undefined;
-	// 
-	//     if (toml) {
-	// 	tomls.push(toml);
-	//     }
-	// }
-	// 
-	// await load_toml("toml");
-	// if (is_nvim) {
-	//     await load_toml("toml_nvim");
-	// }
-	// 
-	// // Merge toml results
-	// const record_plugins: Record<string, Plugin> = {};
-	// const ftplugins: Record<string, string> = {};
-	// const hooks_files: string[] = [];
-	// 
-	// for (const toml of tomls) {
-	//     for (const plugin of toml.plugins) {
-	// 	record_plugins[plugin.name] = plugin;
-	//     }
-	// 
-	//     if (toml.ftplugins) {
-	// 	for (const filetype of Object.keys(toml.ftplugins)) {
-	// 	    if (ftplugins[filetype]) {
-	// 		ftplugins[filetype] += `\n${toml.ftplugins[filetype]}`;
-	// 	    } else {
-	// 		ftplugins[filetype] = toml.ftplugins[filetype];
-	// 	    }
-	// 	}
-	//     }
-	// 
-	//     if (toml.hooks_file) {
-	// 	hooks_files.push(toml.hooks_file);
-	//     }
-	// }
-	// 
-	// for (const plugin_name in record_plugins) {
-	//     const hooks_file_path = path.join(config_directory, plugin_name) + ".vim";
-	//     if (fs.existsSync(hooks_file_path.replace("~", os.homeDir() ?? ""))) {
-	// 	if (Array.isArray(record_plugins[plugin_name].hooks_file)) {
-	// 	    (record_plugins[plugin_name].hooks_file as string[]).push(hooks_file_path);
-	// 	} else if (typeof record_plugins[plugin_name].hooks_file === "undefined") {
-	// 	    record_plugins[plugin_name].hooks_file = hooks_file_path;
-	// 	} else {
-	// 	    record_plugins[plugin_name].hooks_file = [String(record_plugins[plugin_name].hooks_file), hooks_file_path];
-	// 	}
-	//     }
-	// }
-	// 
-	// return {
-	//     checkFiles: [ ...check_files.values() ].concat(hooks_files),
-	//     plugins: Object.values(record_plugins),
-	//     stateLines: []
-	// };
     }
 }

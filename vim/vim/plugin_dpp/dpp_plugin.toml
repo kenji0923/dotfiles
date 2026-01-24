@@ -111,12 +111,6 @@ repo="prabirshrestha/vim-lsp"
 repo="mattn/vim-lsp-settings"
 
 
-# TEX
-
-[[plugins]]
-repo="lervag/vimtex"
-
-
 # C++
 
 [[plugins]]

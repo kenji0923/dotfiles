@@ -1,4 +1,4 @@
-" hook_add {{{
+" hook_source {{{
 
 
 if has('mac')
