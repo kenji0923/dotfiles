@@ -15,3 +15,8 @@ if ! shopt -oq posix; then
 fi
 
 . "$HOME/.deno/env"
+
+# Auto-start ssh-agent
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   eval $(ssh-agent -s) > /dev/null
+fi
