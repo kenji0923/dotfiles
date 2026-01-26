@@ -13,13 +13,39 @@ function s:ddu_common_settings() abort
 		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
     nnoremap <buffer><silent> q
 		\ <Cmd>call ddu#ui#do_action('quit')<CR>
+    nnoremap <buffer><silent> <C-q>
+		\ <Cmd>call ddu#ui#do_action('quit')<CR>
     nnoremap <buffer><silent> a
 		\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
     nnoremap <buffer><silent> i
 		\ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
-    inoremap <buffer><silent> <C-q>
-		\ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction
+
+
+function s:ddu_filter_set_map() abort
+    call ddu#ui#save_cmaps(['<C-j>', '<C-n>', '<C-k>', '<C-p>', '<C-q>', '<CR>'])
+
+    cnoremap <silent> <C-j>
+	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+    cnoremap <silent> <C-n>
+	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+    cnoremap <silent> <C-k>
+	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
+    cnoremap <silent> <C-p>
+	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
+    cnoremap <silent> <C-q>
+		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
+    cnoremap <silent><expr> <CR>
+		\ ddu#ui#get_item()->get('isTree', v:false) ? 
+		\ "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow' })<CR> <Esc> <CR>" : 
+		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR> <Esc> <CR>"
+endfunction
+
+
+function s:ddu_filter_clear_map() abort
+    call ddu#ui#restore_cmaps()
+endfunction
+
 
 function s:ddu_ff_settings() abort
     call s:ddu_common_settings()
@@ -41,6 +67,12 @@ augroup DduCommands
     autocmd FileType ddu-ff call s:ddu_ff_settings()
     autocmd FileType ddu-ff-filter call s:ddu_ff_filter_settings()
     autocmd FileType ddu-filer call s:ddu_filer_settings()
+
+    autocmd User Ddu:uiOpenFilterWindow
+	  \ call s:ddu_filter_set_map()
+
+    autocmd User Ddu:uiCloseFilterWindow
+	  \ call s:ddu_filter_clear_map()
 augroup END
 
 command! DduFiles call ddu#start({ "name": "files" })
