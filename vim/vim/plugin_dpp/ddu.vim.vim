@@ -15,38 +15,17 @@ function s:ddu_common_settings() abort
 		\ <Cmd>call ddu#ui#do_action('quit')<CR>
     nnoremap <buffer><silent> a
 		\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+    nnoremap <buffer><silent> i
+		\ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+    inoremap <buffer><silent> <C-q>
+		\ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction
 
 function s:ddu_ff_settings() abort
     call s:ddu_common_settings()
 
-    nnoremap <buffer><silent> i
-		\ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
-endfunction
-
-function s:ddu_ff_filter_settings() abort
-    nnoremap <buffer><silent> q
-		\ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-    nnoremap <buffer><silent> j
-		\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-    nnoremap <buffer><silent> k
-		\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-    noremap <buffer><silent> <C-n>
-		\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-    noremap <buffer><silent> <C-p>
-		\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-    inoremap <buffer><silent> <ESC>
-		\ <ESC><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-    inoremap <buffer><silent> <CR>
-		\ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
-    inoremap <buffer><silent> <C-j>
-		\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-    inoremap <buffer><silent> <C-n>
-		\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-    inoremap <buffer><silent> <C-k>
-		\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-    inoremap <buffer><silent> <C-p>
-		\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
+    nnoremap <buffer><silent> R
+		\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
 endfunction
 
 function s:ddu_filer_settings() abort
@@ -57,12 +36,15 @@ function s:ddu_filer_settings() abort
 		\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
 endfunction
 
-autocmd FileType ddu-ff call s:ddu_ff_settings()
-autocmd FileType ddu-ff-filter call s:ddu_ff_filter_settings()
-autocmd FileType ddu-filer call s:ddu_filer_settings()
+augroup DduCommands
+    autocmd!
+    autocmd FileType ddu-ff call s:ddu_ff_settings()
+    autocmd FileType ddu-ff-filter call s:ddu_ff_filter_settings()
+    autocmd FileType ddu-filer call s:ddu_filer_settings()
+augroup END
 
 command! DduFiles call ddu#start({ "name": "files" })
-nmap ;e <Cmd>:DduFiles<CR>
+nmap ;; <Cmd>:call ddu#start({ "name": "files" })<CR>
 
 command! DduFiler call ddu#start({ "name": "filer" })
 nmap ;f <Cmd>:DduFiler<CR>
@@ -72,12 +54,14 @@ call ddu#custom#patch_global({
 	\ 	"uiParams": {
 	\ 	    "ff": {
 	\		"cursorPos": 0,
-	\		"prompt": "> ",
+	\		"split": 'floating',
+	\       	"winHeight": '&lines - 1',
+	\       	"winWidth": '&columns / 3 * 2'
 	\ 	    },
 	\ 	    "filer": {
 	\ 		"split": "vertical",	
 	\ 		"splitDirection": "topleft",	
-	\ 		"winWidth": "&columns / 5",	
+	\ 		"winWidth": "&columns / 4",
 	\ 	    },
 	\ 	},
 	\ 	"sourceOptions": {
@@ -85,6 +69,11 @@ call ddu#custom#patch_global({
 	\ 		"matchers": ["matcher_substring"],
 	\ 	    },
 	\ 	},
+	\	"filterParams": {
+	\	    "matcher_substring": {
+	\		"highlightMatched": "Search",
+	\	    },
+	\	},
 	\	"kindOptions": {
 	\	    "file": {
 	\		"defaultAction": "open",
