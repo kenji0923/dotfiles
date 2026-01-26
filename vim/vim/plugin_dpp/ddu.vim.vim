@@ -11,11 +11,9 @@ function s:ddu_common_settings() abort
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
 		\ "<Cmd>call ddu#ui#do_action('expandItem', { 'mode': 'toggle' })<CR>" :
 		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
-    nnoremap <buffer><silent> ^
-		\ <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow', 'params': { 'path': '..' } })<CR>
     nnoremap <buffer><silent> q
 		\ <Cmd>call ddu#ui#do_action('quit')<CR>
-    nnoremap <buffer><silent> n
+    nnoremap <buffer><silent> a
 		\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 endfunction
 
@@ -53,6 +51,10 @@ endfunction
 
 function s:ddu_filer_settings() abort
     call s:ddu_common_settings()
+    nnoremap <buffer><silent> <C-h>
+		\ <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow', 'params': { 'path': '..' } })<CR>
+    nnoremap <buffer><silent> R
+		\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
 endfunction
 
 autocmd FileType ddu-ff call s:ddu_ff_settings()
