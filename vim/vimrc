@@ -119,15 +119,18 @@ endif
 
 " Custom setting
 augroup dpp_custom
-    autocmd! BufWritePost *.vim,*.ts,*.toml call dpp#check_files()
-    autocmd! User Dpp:makeStatePost echom 'dpp has made a state'
+    autocmd!
+    autocmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc,_vimrc
+	    \ : if !dpp#check_files()->empty()
+	    \ |   call dpp#make_state()
+	    \ | endif
+    autocmd User Dpp:makeStatePost echom 'dpp has made a state'
 augroup END
 
 command! DppClearState call dpp#clear_state()
 command! DppMakeState call dpp#make_state(s:dpp_base, s:dpp_config)
 command! DppLoadState call dpp#min#load_state(s:dpp_base)
 command! DppInstall call dpp#async_ext_action('installer', 'install')
-" command! DppUpgrade execute '!. ~/.vim/plugin_dpp/upgrade_dpp.sh ' .. s:dpp_src
 command! DppUpdate call dpp#async_ext_action('installer', 'update')
 
 filetype indent plugin on
