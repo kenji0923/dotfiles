@@ -119,6 +119,11 @@ call ddu#custom#patch_global({
 
 call ddu#custom#patch_local("files", {
 	\	"sources": ["file_rec"],
+	\ 	"sourceOptions": {
+	\ 	    "_": {
+	\ 		"converters": ["converter_devicon"]
+	\ 	    }
+	\	}
 	\ })
 
 call ddu#custom#patch_local("filer", {
@@ -127,6 +132,7 @@ call ddu#custom#patch_local("filer", {
 	\ 	"sourceOptions": {
 	\ 	    "_": {
 	\ 		"columns": ["filename"],
+	\ 		"converters": ["converter_devicon"]
 	\ 	    },
 	\ 	},
 	\	"actionOptions": {

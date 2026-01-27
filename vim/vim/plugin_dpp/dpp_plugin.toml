@@ -95,6 +95,9 @@ repo="Shougo/ddu-kind-file"
 [[plugins]]
 repo="Shougo/ddu-filter-matcher_substring"
 
+[[plugins]]
+repo="uga-rosa/ddu-filter-converter_devicon"
+
 
 # Git
 
