@@ -90,12 +90,7 @@ call ddu#custom#patch_global({
 	\		"split": 'floating',
 	\       	"winHeight": '&lines - 1',
 	\       	"winWidth": '&columns / 3 * 2'
-	\ 	    },
-	\ 	    "filer": {
-	\ 		"split": "vertical",	
-	\ 		"splitDirection": "topleft",	
-	\ 		"winWidth": "&columns / 4",
-	\ 	    },
+	\ 	    }
 	\ 	},
 	\ 	"sourceOptions": {
 	\ 	    "_": {
@@ -128,6 +123,13 @@ call ddu#custom#patch_local("files", {
 
 call ddu#custom#patch_local("filer", {
 	\	"ui": "filer", 
+	\ 	"uiParams": {
+	\ 	    "_": {
+	\ 		"split": "vertical",	
+	\ 		"splitDirection": "topleft",	
+	\ 		"winWidth": "&columns / 4",
+	\ 	    }
+	\	},
 	\	"sources": ["file"],
 	\ 	"sourceOptions": {
 	\ 	    "_": {
