@@ -118,6 +118,24 @@ export class Config extends BaseConfig {
 	    for (const toml of tomls) {
 		for (const plugin of toml.plugins ?? []) {
 		    recordPlugins[plugin.name] = plugin;
+
+		    const record = recordPlugins[plugin.name]
+
+		    const hooks_file_path = path.join(config_directory, plugin.name) + ".vim";
+
+		    if (fs.existsSync(hooks_file_path.replace("~", os.homedir()))) {
+			let hooks_file = record.hooks_file;
+
+			if (Array.isArray(hooks_file)) {
+			    (hooks_file as string[]).push(hooks_file_path);
+			} else if (typeof hooks_file === "undefined") {
+			    hooks_file = hooks_file_path;
+			} else {
+			    hooks_file = [String(hooks_file), hooks_file_path];
+			}
+
+			record.hooks_file = hooks_file;
+		    }
 		}
 
 		if (toml.ftplugins) {
@@ -162,22 +180,19 @@ export class Config extends BaseConfig {
 	}
 
 
-	for (const plugin_name in recordPlugins) {
-	    const hooks_file_path = path.join(config_directory, plugin_name) + ".vim";
-	    if (fs.existsSync(hooks_file_path.replace("~", os.homedir()))) {
-		if (Array.isArray(recordPlugins[plugin_name].hooks_file)) {
-		    (recordPlugins[plugin_name].hooks_file as string[]).push(hooks_file_path);
-		} else if (typeof recordPlugins[plugin_name].hooks_file === "undefined") {
-		    recordPlugins[plugin_name].hooks_file = hooks_file_path;
-		} else {
-		    recordPlugins[plugin_name].hooks_file = [String(recordPlugins[plugin_name].hooks_file), hooks_file_path];
+	const checkFiles: string[] = [path.join(config_directory, "dpp.ts")]
+	    .concat(tomlFiles.map(file => file.path))
+	    .concat(Object.values(recordPlugins).flatMap((record) => {
+		if (Array.isArray(record.hooks_file)) {
+		    return record.hooks_file;
 		}
-	    }
-	}
+		return record.hooks_file ? [record.hooks_file] : [];
+	    }))
+	    .concat(hooksFiles);
 
 
 	return {
-	    checkFiles: [path.join(config_directory, "dpp.ts")].concat(tomlFiles.map(file => file.path)).concat(hooksFiles),
+	    checkFiles,
 	    ftplugins,
 	    hooksFiles,
 	    multipleHooks,
