@@ -84,6 +84,11 @@ nmap ;f <Cmd>:DduFiler<CR>
 
 call ddu#custom#patch_global({
 	\ 	"ui": "ff",
+	\	"uiOptions": {
+	\	    "_": {
+	\		"filterPrompt": "> "
+	\	    }
+	\	},
 	\ 	"uiParams": {
 	\ 	    "ff": {
 	\		"cursorPos": 0,
