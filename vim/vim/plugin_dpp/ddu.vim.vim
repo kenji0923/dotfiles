@@ -3,6 +3,8 @@
 function s:ddu_common_settings() abort
     setlocal cursorline
 
+    call lsp#disable_diagnostics_for_buffer() 
+
     nnoremap <buffer><silent><expr> <CR>
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
 		\ "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow' })<CR>" : 
@@ -15,6 +17,8 @@ function s:ddu_common_settings() abort
 		\ <Cmd>call ddu#ui#do_action('quit')<CR>
     nnoremap <buffer><silent> <C-q>
 		\ <Cmd>call ddu#ui#do_action('quit')<CR>
+    nnoremap <buffer><silent> <C-[>
+		\ <Cmd>call ddu#ui#do_action('quit') <CR>
     nnoremap <buffer><silent> a
 		\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
     nnoremap <buffer><silent> i
@@ -30,8 +34,6 @@ function s:ddu_filter_set_map() abort
     cnoremap <silent> <C-p>
 	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-q>
-		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
-    cnoremap <silent> <C-[>
 		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
     cnoremap <silent><expr> <CR>
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
@@ -54,6 +56,7 @@ endfunction
 
 function s:ddu_filer_settings() abort
     call s:ddu_common_settings()
+
     nnoremap <buffer><silent> <C-h>
 		\ <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow', 'params': { 'path': '..' } })<CR>
     nnoremap <buffer><silent> R
@@ -63,7 +66,6 @@ endfunction
 augroup DduCommands
     autocmd!
     autocmd FileType ddu-ff call s:ddu_ff_settings()
-    autocmd FileType ddu-ff-filter call s:ddu_ff_filter_settings()
     autocmd FileType ddu-filer call s:ddu_filer_settings()
 
     autocmd User Ddu:uiOpenFilterWindow

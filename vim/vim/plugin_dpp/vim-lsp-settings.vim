@@ -1,18 +1,21 @@
 " hook_add {{{
 
-let g:lsp_settings = {
-\   'pylsp-all': {
-\	'workspace_config': {
-\	    'pylsp': {
-\	        'plugins': {
-\		    'pycodestyle': {
-\			'enabled': v:false,
-\			'ignore': ['E501']
-\		    }
-\		 }
-\	      }
-\	 }
-\   },
-\}
+    " Not good for Windows maybe
+    let s:python_path = exists("$VIRTUAL_ENV") ? $VIRTUAL_ENV . "/bin/python" : "python"
+
+    let g:lsp_settings = #{
+	\	basedpyright-langserver: #{
+	\	    workspace_config: #{
+	\		basedpyright: #{
+	\		    analysis: #{
+	\			diagnosticMode: "workspace"
+	\		    }
+	\		},
+	\		python: #{
+	\		    pythonPath: s:python_path
+	\		}
+	\	    }
+	\	}
+	\ }
 
 " }}}

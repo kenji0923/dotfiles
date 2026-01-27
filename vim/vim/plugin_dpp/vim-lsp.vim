@@ -1,6 +1,9 @@
-" hook_add {{{
+" hook_source {{{
 
 function! s:on_lsp_buffer_enabled() abort
+    let g:lsp_log_verbose = 1
+    let g:lsp_log_file = expand('~/vim-lsp.log')
+
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
@@ -9,16 +12,23 @@ function! s:on_lsp_buffer_enabled() abort
     let g:ddu_source_lsp_clientName = "vim-lsp"
 
 
-    call ddu#custom#patch_global({
-	    \	    "sync": v:true,
-	    \	    "kindOptions": {
-	    \	        "lsp": {
-	    \		   "defaultAction": "open",
-	    \	        },
-	    \	        "lsp_codeAction": {
-	    \		   "defaultAction": "apply",
-	    \	        },
+    call ddu#custom#patch_global(#{
+	    \	sourceOptions: #{
+	    \	    lsp_documentSymbol: #{
+	    \		converters: [ 'converter_lsp_symbol' ],
 	    \	    },
+	    \	    lsp_workspaceSymbol: #{
+	    \		converters: [ 'converter_lsp_symbol' ],
+	    \	    },
+	    \	},
+	    \	kindOptions: #{
+	    \	    lsp: #{
+	    \		defaultAction: "open",
+	    \	    },
+	    \	    lsp_codeAction: #{
+	    \		defaultAction: "apply",
+	    \	    },
+	    \	},
 	    \ })
 
 
@@ -72,20 +82,90 @@ function! s:on_lsp_buffer_enabled() abort
 
 
     function! s:start_ddu_lsp_documentSymbol() abort
-	call ddu#start({
-	    \	    "sources": [ "lsp_documentSymbol" ],
+	call ddu#start(#{
+	    \	    sources: [#{
+	    \		name: "lsp_documentSymbol"
+	    \	    }],
+	    \	    sourceOptions: #{
+	    \		_: #{
+	    \		    volatile: v:true,
+	    \ 	    	},
+	    \ 	    },
+	    \ 	    uiParams: #{
+	    \		ff: #{
+	    \		    ignoreEmpty: v:false,
+	    \		    displayTree: v:true
+	    \ 	    	},
+	    \ 	    }
 	    \ })
     endfunction
 
 
-    function! s:start_ddu_lsp_workspaceSymbol(query) abort
-	call ddu#start({
-	    \	    "sources": [ "lsp_workspaceSymbol" ],
-	    \	    "sourceParams": {
-	    \		"_": {
-	    \		    "query": a:query,
-	    \		},
-	    \	    },
+    " Bug? Filtering not working
+    function! s:start_ddu_lsp_workspaceSymbol() abort
+	call ddu#start(#{
+	    \	    sources: [#{
+	    \		name: "lsp_workspaceSymbol"
+	    \	    }],
+	    \	    sourceOptions: #{
+	    \		_: #{
+	    \		    volatile: v:true,
+	    \ 	    	},
+	    \ 	    },
+	    \ 	    uiParams: #{
+	    \		ff: #{
+	    \		    ignoreEmpty: v:false,
+	    \		    displayTree: v:true
+	    \ 	    	},
+	    \ 	    }
+	    \ })
+    endfunction
+
+
+    function! s:start_ddu_lsp_callHierarchy_incomingCalls() abort
+	call ddu#start(#{
+	    \	    sources: [#{
+	    \		name: "lsp_callHierarchy"
+	    \	    }],
+	    \	    sourceOptions: #{
+	    \		_: #{
+	    \		    volatile: v:true,
+	    \ 	    	},
+	    \ 	    },
+	    \	    sourceParams: #{
+	    \		_: #{
+	    \		    method: "callHierarchy/incomingCalls"
+	    \ 	    	},
+	    \ 	    },
+	    \ 	    uiParams: #{
+	    \		ff: #{
+	    \		    displayTree: v:true
+	    \ 	    	},
+	    \ 	    }
+	    \ })
+    endfunction
+
+
+    function! s:start_ddu_lsp_callHierarchy_outgoingCalls() abort
+	call ddu#start(#{
+	    \	    sources: [#{
+	    \		name: "lsp_callHierarchy"
+	    \	    }],
+	    \	    sourceOptions: #{
+	    \		_: #{
+	    \		    volatile: v:true,
+	    \ 	    	},
+	    \ 	    },
+	    \	    sourceParams: #{
+	    \		_: #{
+	    \		    method: "callHierarchy/outgoingCalls"
+	    \ 	    	},
+	    \ 	    },
+	    \ 	    uiParams: #{
+	    \		ff: #{
+	    \		    ignoreEmpty: v:false
+	    \ 	    	},
+	    \ 	    }
 	    \ })
     endfunction
 
@@ -107,10 +187,13 @@ function! s:on_lsp_buffer_enabled() abort
 
 
     " nmap <buffer> gw <plug>(lsp-workspace-symbol)
-    nmap <buffer><expr> gw <SID>start_ddu_lsp_workspaceSymbol("")
+    nmap <buffer><expr> gw <SID>start_ddu_lsp_workspaceSymbol()
     
     " nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer><expr> gr <SID>start_ddu_lsp_references()
+
+    nmap <buffer><expr> gchi <SID>start_ddu_lsp_callHierarchy_incomingCalls()
+    nmap <buffer><expr> gcho <SID>start_ddu_lsp_callHierarchy_outgoingCalls()
 
 
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
@@ -124,8 +207,13 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
 endfunction
 
+
+function! s:on_lsp_setup() abort
+endfunction
+
 augroup lsp_install
     autocmd!
+    autocmd User lsp_setup call s:on_lsp_setup()
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
