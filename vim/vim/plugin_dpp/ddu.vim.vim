@@ -23,17 +23,15 @@ endfunction
 
 
 function s:ddu_filter_set_map() abort
-    call ddu#ui#save_cmaps(['<C-j>', '<C-n>', '<C-k>', '<C-p>', '<C-q>', '<CR>'])
+    call ddu#ui#save_cmaps(['<C-n>', '<C-p>', '<C-q>', '<CR>'])
 
-    cnoremap <silent> <C-j>
-	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
     cnoremap <silent> <C-n>
 	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-    cnoremap <silent> <C-k>
-	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-p>
 	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-q>
+		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
+    cnoremap <silent> <C-[>
 		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
     cnoremap <silent><expr> <CR>
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
@@ -69,10 +67,13 @@ augroup DduCommands
     autocmd FileType ddu-filer call s:ddu_filer_settings()
 
     autocmd User Ddu:uiOpenFilterWindow
-	  \ call s:ddu_filter_set_map()
+		\ call s:ddu_filter_set_map()
 
     autocmd User Ddu:uiCloseFilterWindow
-	  \ call s:ddu_filter_clear_map()
+		\ call s:ddu_filter_clear_map()
+
+    autocmd User Ddu:uiDone ++nested
+		\ call ddu#ui#async_action('openFilterWindow')
 augroup END
 
 command! DduFiles call ddu#start({ "name": "files" })
