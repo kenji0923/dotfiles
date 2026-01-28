@@ -2,7 +2,7 @@
 
 call ddc#custom#patch_global('ui', 'native')
 
-call ddc#custom#patch_global('sources', ['around', 'vsnip', 'lsp'])
+call ddc#custom#patch_global('sources', ['around', 'buffer', 'vsnip', 'lsp'])
 
 call ddc#custom#patch_global('sourceOptions', {
 	    \	'_': {
@@ -11,6 +11,9 @@ call ddc#custom#patch_global('sourceOptions', {
 	    \	},
 	    \	'around': {
 	    \	    'mark': 'aro',
+	    \	},
+	    \	'buffer': {
+	    \	    'mark': 'buf',
 	    \	},
 	    \	'lsp': {
 	    \	    'isVolatile': v:true,
@@ -35,7 +38,6 @@ call ddc#custom#patch_global('sourceParams', {
 	    \ })
 
 call ddc#custom#patch_filetype('ddu-ff', 'ui', 'none') 
-call ddc#custom#patch_filetype('ddu-ff-filter', 'ui', 'none') 
 call ddc#custom#patch_filetype('ddu-filer', 'ui', 'none') 
 
 call ddc#enable()

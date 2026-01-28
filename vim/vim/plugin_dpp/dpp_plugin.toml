@@ -38,6 +38,9 @@ repo="Shougo/ddc-source-around"
 repo="Shougo/ddc-source-lsp"
 
 [[plugins]]
+repo="uga-rosa/ddc-source-buffer"
+
+[[plugins]]
 repo="uga-rosa/ddc-source-vsnip"
 
 [[plugins]]
