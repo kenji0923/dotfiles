@@ -2,13 +2,17 @@
 function! s:skkeleton_init() abort
     imap <C-j> <Plug>(skkeleton-enable)
     cmap <C-j> <Plug>(skkeleton-enable)
-    imap <C-f> <Plug>(skkeleton-disable)
-    cmap <C-f> <Plug>(skkeleton-disable)
+    imap <C-e> <Plug>(skkeleton-disable)
+    cmap <C-e> <Plug>(skkeleton-disable)
 
     imap <S-F2> <Plug>(skkeleton-enable)
     cmap <S-F2> <Plug>(skkeleton-enable)
+    imap <F14> <Plug>(skkeleton-enable)
+    cmap <F14> <Plug>(skkeleton-enable)
     imap <S-F1> <Plug>(skkeleton-disable)
     cmap <S-F1> <Plug>(skkeleton-disable)
+    imap <F13> <Plug>(skkeleton-disable)
+    cmap <F13> <Plug>(skkeleton-disable)
 
     let g:skk_statusline_mode_strings = {
 		\ 'hira': 'あ',

@@ -32,6 +32,9 @@ repo="Shougo/ddc-ui-none"
 repo="Shougo/ddc-ui-native"
 
 [[plugins]]
+repo="Shougo/ddc-ui-pum"
+
+[[plugins]]
 repo="Shougo/ddc-source-around"
 
 [[plugins]]
@@ -44,10 +47,31 @@ repo="uga-rosa/ddc-source-buffer"
 repo="uga-rosa/ddc-source-vsnip"
 
 [[plugins]]
+repo="LumaKernel/ddc-source-file"
+
+[[plugins]]
+repo="Shougo/ddc-source-cmdline"
+
+[[plugins]]
+repo="Shougo/ddc-source-cmdline_history"
+
+[[plugins]]
+repo="Shougo/ddc-source-rg"
+
+[[plugins]]
+repo="Shougo/ddc-source-input"
+
+[[plugins]]
+repo="Shougo/ddc-source-line"
+
+[[plugins]]
 repo="Shougo/ddc-matcher_head"
 
 [[plugins]]
 repo="Shougo/ddc-sorter_rank"
+
+[[plugins]]
+repo="tani/ddc-fuzzy"
 
 [[plugins]]
 repo="hrsh7th/vim-vsnip"
@@ -57,7 +81,7 @@ repo="rafamadriz/friendly-snippets"
 merged=false
 
 [[plugins]]
-repo="tyru/caw.vim"
+repo="Shougo/pum.vim"
 
 
 # For skk
@@ -115,9 +139,3 @@ repo="prabirshrestha/vim-lsp"
 
 [[plugins]]
 repo="mattn/vim-lsp-settings"
-
-
-# C++
-
-[[plugins]]
-repo="kenji0923/cern_root.vim"
