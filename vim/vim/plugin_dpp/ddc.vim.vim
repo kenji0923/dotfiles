@@ -34,9 +34,10 @@ call ddc#custom#patch_global('sourceOptions', {
 	    \	    'mark': 'cmd',
 	    \	    "minAutoCompleteLength": 1
 	    \	},
-	    \	'cmdline-history': {
+	    \	'cmdline_history': {
 	    \	    'mark': 'cmdhis',
-	    \	    "minAutoCompleteLength": 1
+	    \	    "minAutoCompleteLength": 1,
+	    \	    "maxItems": 10
 	    \	},
 	    \	'file': {
 	    \	    'mark': '',
@@ -89,9 +90,9 @@ call ddc#custom#patch_filetype(['ps1', 'dosbatch', 'autohotkey', 'registry'], {
 " Command line completion
 set wildoptions+=fuzzy
 call ddc#custom#patch_global('cmdlineSources', {
-	    \ ':': ["file", 'cmdline-history', 'cmdline', 'around'],
-	    \ '@': ['cmdline-history', 'input', 'file', 'around'],
-	    \ '>': ['cmdline-history', 'input', 'file', 'around'],
+	    \ ':': ["file", 'cmdline_history', 'cmdline', 'around'],
+	    \ '@': ['cmdline_history', 'input', 'file', 'around'],
+	    \ '>': ['cmdline_history', 'input', 'file', 'around'],
 	    \ '/': ['around', 'line'],
 	    \ '?': ['around', 'line'],
 	    \ '-': ['around', 'line'],
