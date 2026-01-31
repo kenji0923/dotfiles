@@ -138,4 +138,4 @@ repo="lambdalisue/vim-gin"
 repo="prabirshrestha/vim-lsp"
 
 [[plugins]]
-repo="mattn/vim-lsp-settings"
+repo="kenji0923/vim-lsp-settings"

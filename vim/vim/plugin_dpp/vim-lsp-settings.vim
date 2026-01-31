@@ -5,6 +5,7 @@
 
     let g:lsp_settings = #{
 	\	basedpyright-langserver: #{
+	\	    root_uri_patterns: ['pyrightconfig.json', '.git/'],
 	\	    workspace_config: #{
 	\		basedpyright: #{
 	\		    analysis: #{
