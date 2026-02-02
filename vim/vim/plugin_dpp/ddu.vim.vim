@@ -5,10 +5,6 @@ function s:ddu_common_settings() abort
 
     call lsp#disable_diagnostics_for_buffer() 
 
-    nnoremap <buffer><silent><expr> <CR>
-		\ ddu#ui#get_item()->get('isTree', v:false) ? 
-		\ "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow' })<CR>" : 
-		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
     nnoremap <buffer><silent><expr> <Space>
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
 		\ "<Cmd>call ddu#ui#do_action('expandItem', { 'mode': 'toggle' })<CR>" :
@@ -35,10 +31,6 @@ function s:ddu_filter_set_map() abort
 	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-q>
 		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
-    cnoremap <silent><expr> <CR>
-		\ ddu#ui#get_item()->get('isTree', v:false) ? 
-		\ "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow' })<CR> <Esc> <CR>" : 
-		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR> <Esc> <CR>"
 endfunction
 
 
@@ -50,12 +42,20 @@ endfunction
 function s:ddu_ff_settings() abort
     call s:ddu_common_settings()
 
+    nnoremap <buffer><silent><expr> <CR>
+		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+
     nnoremap <buffer><silent> R
 		\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
 endfunction
 
 function s:ddu_filer_settings() abort
     call s:ddu_common_settings()
+
+    nnoremap <buffer><silent><expr> <CR>
+		\ ddu#ui#get_item()->get('isTree', v:false) ? 
+		\ "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow' })<CR>" : 
+		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
 
     nnoremap <buffer><silent> <C-h>
 		\ <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'narrow', 'params': { 'path': '..' } })<CR>
@@ -74,8 +74,8 @@ augroup DduCommands
     autocmd User Ddu:uiCloseFilterWindow
 		\ call s:ddu_filter_clear_map()
 
-    autocmd User Ddu:uiDone ++nested
-		\ call ddu#ui#async_action('openFilterWindow')
+		"  autocmd User Ddu:uiDone ++nested
+		"\ call ddu#ui#async_action('openFilterWindow')
 augroup END
 
 command! DduFiles call ddu#start({ "name": "files" })

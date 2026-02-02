@@ -86,16 +86,15 @@ function! s:on_lsp_buffer_enabled() abort
 	    \	    sources: [#{
 	    \		name: "lsp_documentSymbol"
 	    \	    }],
-	    \	    sourceOptions: #{
+	    \	    sourceParams: #{
 	    \		_: #{
-	    \		    volatile: v:true,
-	    \ 	    	},
+	    \		    displayContainerName: v:true,
+	    \ 	    	}
 	    \ 	    },
 	    \ 	    uiParams: #{
 	    \		ff: #{
-	    \		    ignoreEmpty: v:false,
-	    \		    displayTree: v:true
-	    \ 	    	},
+	    \		    ignoreEmpty: v:false
+	    \ 	    	}
 	    \ 	    }
 	    \ })
     endfunction
@@ -114,8 +113,7 @@ function! s:on_lsp_buffer_enabled() abort
 	    \ 	    },
 	    \ 	    uiParams: #{
 	    \		ff: #{
-	    \		    ignoreEmpty: v:false,
-	    \		    displayTree: v:true
+	    \		    ignoreEmpty: v:false
 	    \ 	    	},
 	    \ 	    }
 	    \ })

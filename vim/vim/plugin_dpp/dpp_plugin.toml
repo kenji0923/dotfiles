@@ -111,7 +111,7 @@ repo="Shougo/ddu-source-file"
 repo="Shougo/ddu-source-file_rec"
 
 [[plugins]]
-repo="uga-rosa/ddu-source-lsp"
+repo="kenji0923/ddu-source-lsp"
 
 [[plugins]]
 repo="Shougo/ddu-column-filename"
