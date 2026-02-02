@@ -3,8 +3,6 @@
 function s:ddu_common_settings() abort
     setlocal cursorline
 
-    call lsp#disable_diagnostics_for_buffer() 
-
     nnoremap <buffer><silent><expr> <Space>
 		\ ddu#ui#get_item()->get('isTree', v:false) ? 
 		\ "<Cmd>call ddu#ui#do_action('expandItem', { 'mode': 'toggle' })<CR>" :

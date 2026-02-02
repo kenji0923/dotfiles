@@ -4,3 +4,12 @@ repo="rebelot/kanagawa.nvim"
 
 [[plugins]]
 repo="nvim-treesitter/nvim-treesitter"
+
+
+[[plugins]]
+repo="neovim/nvim-lspconfig"
+
+
+[[plugins]]
+repo="mason-org/mason.nvim"
+lua_source="require(\"mason\").setup()"

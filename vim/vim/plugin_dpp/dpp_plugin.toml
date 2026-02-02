@@ -132,10 +132,10 @@ repo="uga-rosa/ddu-filter-converter_devicon"
 repo="lambdalisue/vim-gin"
 
 
-# LSP
-
-[[plugins]]
-repo="prabirshrestha/vim-lsp"
-
-[[plugins]]
-repo="kenji0923/vim-lsp-settings"
+# # LSP
+#
+# [[plugins]]
+# repo="prabirshrestha/vim-lsp"
+#
+# [[plugins]]
+# repo="kenji0923/vim-lsp-settings"

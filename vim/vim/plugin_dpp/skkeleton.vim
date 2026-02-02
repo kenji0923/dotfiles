@@ -1,10 +1,5 @@
 " hook_add {{{
 function! s:skkeleton_init() abort
-    imap <C-j> <Plug>(skkeleton-enable)
-    cmap <C-j> <Plug>(skkeleton-enable)
-    imap <C-e> <Plug>(skkeleton-disable)
-    cmap <C-e> <Plug>(skkeleton-disable)
-
     imap <S-F2> <Plug>(skkeleton-enable)
     cmap <S-F2> <Plug>(skkeleton-enable)
     imap <F14> <Plug>(skkeleton-enable)

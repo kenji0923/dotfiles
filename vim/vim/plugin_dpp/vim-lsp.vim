@@ -35,7 +35,12 @@ function! s:on_lsp_buffer_enabled() abort
     function! s:start_ddu_lsp_definition() abort
 	call ddu#start({
 	    \	    "sync": v:true,
-	    \	    "sources": [ "lsp_definition" ],
+	    \	    "sources": [ {"name": "lsp_definition"} ],
+	    \	    "sourceParams": {
+	    \		"_": {
+	    \		    "method": "textDocument/definition"
+	    \		}
+	    \	    },
 	    \	    "uiParams": {
 	    \		"ff": {
 	    \		    "immediateAction": "open",
@@ -47,18 +52,17 @@ function! s:on_lsp_buffer_enabled() abort
 
     function! s:start_ddu_lsp_decleration() abort
 	call ddu#start({
-	    \	    "sync": v:true,
 	    \	    "sources": [ "lsp_definition" ],
 	    \	    "sourceParams": {
 	    \		"_": {
 	    \		    "method": "textDocument/declaration"
-	    \		},
+	    \		}
 	    \	    },
 	    \	    "uiParams": {
 	    \		"ff": {
-	    \		    "immediateAction": "open",
-	    \		},
-	    \	    },
+	    \		    "immediateAction": "open"
+	    \		}
+	    \	    }
 	    \ })
     endfunction
 
@@ -66,17 +70,19 @@ function! s:on_lsp_buffer_enabled() abort
     function! s:start_ddu_lsp_references() abort
 	call ddu#start({
 	    \	    "sync": v:true,
-	    \	    "sources": [ "lsp_references" ],
+	    \	    "sources": [{
+	    \		"name": "lsp_references"
+	    \	    }],
 	    \	    "sourceParams": {
 	    \		"_": {
-	    \		    "includeDeclaration": v:false,
+	    \		    "includeDeclaration": v:true
 	    \		},
 	    \	    },
 	    \	    "uiParams": {
 	    \		"ff": {
-	    \		    "immediateAction": "open",
-	    \		},
-	    \	    },
+	    \		    "immediateAction": "open"
+	    \		}
+	    \	    }
 	    \ })
     endfunction
 
@@ -167,32 +173,18 @@ function! s:on_lsp_buffer_enabled() abort
 	    \ })
     endfunction
 
-
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer><expr> gud <SID>start_ddu_lsp_definition()
-
-
     nmap <buffer> gD <plug>(lsp-declaration)
-    nmap <buffer><expr> guD <SID>start_ddu_lsp_decleration()
-
-
     nmap <buffer> gy <plug>(lsp-type-definition)
     nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gr <plug>(lsp-references)
 
-
-    " nmap <buffer> gs <plug>(lsp-document-symbol)
     nmap <buffer><expr> gs <SID>start_ddu_lsp_documentSymbol()
-
-
-    " nmap <buffer> gw <plug>(lsp-workspace-symbol)
     nmap <buffer><expr> gw <SID>start_ddu_lsp_workspaceSymbol()
-    
-    " nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer><expr> gr <SID>start_ddu_lsp_references()
+    nmap <buffer><expr> gur <SID>start_ddu_lsp_references()
 
     nmap <buffer><expr> gchi <SID>start_ddu_lsp_callHierarchy_incomingCalls()
     nmap <buffer><expr> gcho <SID>start_ddu_lsp_callHierarchy_outgoingCalls()
-
 
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
@@ -205,13 +197,8 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
 endfunction
 
-
-function! s:on_lsp_setup() abort
-endfunction
-
 augroup lsp_install
     autocmd!
-    autocmd User lsp_setup call s:on_lsp_setup()
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 

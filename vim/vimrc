@@ -25,6 +25,7 @@ set noexpandtab
 set backspace=indent,eol,start
 set shellslash
 set isfname-={,}
+set isfname+=@
 
 " Operation
 set wildmenu

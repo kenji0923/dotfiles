@@ -66,6 +66,9 @@ call ddc#custom#patch_global('sourceParams', {
 	    \	    'enableAdditionalTextEdit': v:true,
 	    \	    'enableDisplayDetail': v:true,
 	    \   },
+	    \	'file': {
+	    \	    'filenameChars': "[:keyword:]@"
+	    \	}
 	    \ })
 
 call ddc#custom#patch_global('filterParams', {
@@ -102,14 +105,18 @@ call ddc#custom#patch_global('cmdlineSources', {
 nnoremap :  <Cmd>call CommandlinePre()<CR>:
 
 function! CommandlinePre() abort
-    cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-    cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
     cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-    cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-j>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <C-k>   <Cmd>call pum#map#insert_relative(-1)<CR>
     cnoremap <C-f>   <Cmd>call pum#map#insert_relative_page(+1)<CR>
     cnoremap <C-b>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
     cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    cnoremap <C-p>   <cmd>call ddc#map#manual_complete({
+	\   "cmdlineSources": {
+	\	':': ["cmdline_history"]
+	\   }
+	\})<CR>
 
     autocmd User DDCCmdlineLeave ++once call CommandlinePost()
 
@@ -121,9 +128,11 @@ function! CommandlinePost() abort
     silent! cunmap <Tab>
     silent! cunmap <S-Tab>
     silent! cunmap <C-n>
-    silent! cunmap <C-p>
+    silent! cunmap <C-j>
+    silent! cunmap <C-k>
     silent! cunmap <C-y>
     silent! cunmap <C-e>
+    silent! cunmap <C-p>
 endfunction
 
 call ddc#custom#patch_filetype('ddu-ff', 'ui', 'none') 
@@ -133,7 +142,9 @@ call ddc#enable()
 
 inoremap <C-l>	<cmd>call ddc#map#manual_complete()<CR>
 inoremap <C-n>	<Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-j>	<Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p>	<Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-k>	<Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-f>  <Cmd>call pum#map#insert_relative_page(+1)<CR>
 inoremap <C-b>  <Cmd>call pum#map#insert_relative_page(-1)<CR>
 inoremap <C-y>	<Cmd>call pum#map#confirm()<CR>
