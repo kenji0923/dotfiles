@@ -1,0 +1,18 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "folderTrust": {
+      "enabled": true
+    },
+    "enablePermanentToolApproval": true
+  },
+  "general": {
+    "previewFeatures": true,
+    "preferredEditor": "neovim"
+  },
+  "tools": {
+    "autoAccept": true
+  }
+}
