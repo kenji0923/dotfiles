@@ -83,6 +83,9 @@ merged=false
 [[plugins]]
 repo="Shougo/pum.vim"
 
+[[plugins]]
+repo="machakann/vim-sandwich"
+
 
 # For skk
 
