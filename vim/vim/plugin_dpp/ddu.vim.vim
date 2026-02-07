@@ -21,16 +21,20 @@ endfunction
 
 
 function s:ddu_filter_set() abort
-    call ddu#ui#save_cmaps(['<C-n>', '<C-p>', '<C-q>', '<CR>'])
+    call ddu#ui#save_cmaps(['<C-j>', '<C-n>', '<C-k>', '<C-p>', '<C-q>', '<CR>'])
 
+    cnoremap <silent> <C-j>
+	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
     cnoremap <silent> <C-n>
 	        \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+    cnoremap <silent> <C-k>
+	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-p>
 	        \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
     cnoremap <silent> <C-q>
-		\ <Cmd>call ddu#ui#do_action('quit') <CR> <Esc> <CR>
+		\ <Esc><Cmd>call ddu#ui#do_action('quit')<CR>
     cnoremap <silent> <CR>
-		\ <Cmd>call ddu#ui#do_action('itemAction') <CR> <Esc> <CR>
+		\ <CR><Cmd>call ddu#ui#do_action('itemAction')<CR>
 
     call cmdline#enable()
 endfunction
