@@ -129,6 +129,12 @@ repo="Shougo/ddu-filter-matcher_substring"
 repo="uga-rosa/ddu-filter-converter_devicon"
 
 
+# UI
+
+[[plugins]]
+repo="Shougo/cmdline.vim"
+
+
 # Git
 
 [[plugins]]

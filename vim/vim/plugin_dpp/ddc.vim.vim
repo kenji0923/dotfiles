@@ -59,7 +59,7 @@ call ddc#custom#patch_global('sourceOptions', {
 
 call ddc#custom#patch_global('sourceParams', {
 	    \   'lsp': {
-	    \	    'lspEngine': 'vim-lsp',
+	    \	    'lspEngine': 'nvim-lsp',
 	    \	    'snippetEngine': denops#callback#register({
 	    \		    body -> vsnip#anonymous(body)
 	    \		}),
