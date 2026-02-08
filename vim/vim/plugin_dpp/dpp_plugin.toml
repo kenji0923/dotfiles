@@ -138,7 +138,7 @@ repo="Shougo/cmdline.vim"
 # Git
 
 [[plugins]]
-repo="lambdalisue/vim-gin"
+repo="tpope/vim-fugitive"
 
 
 # # LSP

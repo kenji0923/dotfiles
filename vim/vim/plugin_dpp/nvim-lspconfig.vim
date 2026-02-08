@@ -2,7 +2,16 @@
 
 lua << EOF
 
+-- Disable default Neovim 0.10+ LSP mappings starting with 'gr'
+pcall(vim.keymap.del, 'n', 'gra')
+pcall(vim.keymap.del, 'n', 'gri')
+pcall(vim.keymap.del, 'n', 'grn')
+pcall(vim.keymap.del, 'n', 'grr')
+pcall(vim.keymap.del, 'n', 'grt')
+
 vim.lsp.enable('basedpyright')
+
+vim.opt.updatetime = 500
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('my.lsp', {}),
@@ -21,6 +30,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	})
 
 	vim.opt_local.signcolumn = "yes"
+
+	local client = vim.lsp.get_client_by_id(args.data.client_id)
+	if client and client.server_capabilities.documentHighlightProvider then
+	    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+		buffer = args.buf,
+		callback = vim.lsp.buf.document_highlight,
+	    })
+	    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+		buffer = args.buf,
+		callback = vim.lsp.buf.clear_references,
+	    })
+	end
 
 	vim.g.ddu_source_lsp_clientName = "nvim-lsp"
 
@@ -89,7 +110,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		}},
 		sourceParams = {
 		    _ = {
-			includeDeclaration = true
+			showLine = true,
+			locationPaddingWidth = 30
 		    }
 		}
 	    })
@@ -102,7 +124,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		}},
 		sourceParams = {
 		    _ = {
-			displayContainerName = true
+			displayContainerName = true,
+			symbolNameWidth = 40
 		    }
 		},
 		uiParams = {
@@ -123,6 +146,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			volatile = true
 		    }
 		},
+		sourceParams = {
+		    _ = {
+			displayContainerName = true,
+			symbolNameWidth = 40 
+		    }
+		},
 		uiParams = {
 		    ff = {
 			ignoreEmpty = false
@@ -131,12 +160,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	    })
 	end
 
-	vim.keymap.set('n', 'gd', start_ddu_lsp_definition, { noremap = true, buffer = true, silent = true })
-	vim.keymap.set('n', 'gD', start_ddu_lsp_decleration, { noremap = true, buffer = true, silent = true })
-	vim.keymap.set('n', 'gr', start_ddu_lsp_references, { noremap = true, buffer = true, silent = true })
-	vim.keymap.set('n', 'gs', start_ddu_lsp_documentSymbol, { noremap = true, buffer = true, silent = true })
-	vim.keymap.set('n', 'gw', start_ddu_lsp_workspaceSymbol, { noremap = true, buffer = true, silent = true })
-	vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end, { noremap = true, buffer = true, silent = true })
+	vim.keymap.set('n', 'gd', start_ddu_lsp_definition, { noremap = true, buffer = true, silent = true, desc = "LSP: Definition" })
+	vim.keymap.set('n', 'gD', start_ddu_lsp_decleration, { noremap = true, buffer = true, silent = true, desc = "LSP: Declaration" })
+	vim.keymap.set('n', 'gr', start_ddu_lsp_references, { noremap = true, buffer = true, silent = true, desc = "LSP: References" })
+	vim.keymap.set('n', 'gs', start_ddu_lsp_documentSymbol, { noremap = true, buffer = true, silent = true, desc = "LSP: Document Symbol" })
+	vim.keymap.set('n', 'gw', start_ddu_lsp_workspaceSymbol, { noremap = true, buffer = true, silent = true, desc = "LSP: Workspace Symbol" })
+	vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end, { noremap = true, buffer = true, silent = true, desc = "LSP: Hover" })
+	vim.keymap.set("n", "gn", function() vim.lsp.buf.rename() end, { noremap = true, buffer = true, silent = true, desc = "LSP: Rename" })
     end,
 })
 
