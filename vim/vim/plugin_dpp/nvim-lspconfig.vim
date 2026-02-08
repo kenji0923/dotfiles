@@ -17,9 +17,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	    float = {
 		cursorhold = true,
 		source = "always",
-		border = "single", -- Optional, adds a border to the float
 	    },
 	})
+
+	vim.opt_local.signcolumn = "yes"
 
 	vim.g.ddu_source_lsp_clientName = "nvim-lsp"
 
@@ -135,6 +136,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	vim.keymap.set('n', 'gr', start_ddu_lsp_references, { noremap = true, buffer = true, silent = true })
 	vim.keymap.set('n', 'gs', start_ddu_lsp_documentSymbol, { noremap = true, buffer = true, silent = true })
 	vim.keymap.set('n', 'gw', start_ddu_lsp_workspaceSymbol, { noremap = true, buffer = true, silent = true })
+	vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end, { noremap = true, buffer = true, silent = true })
     end,
 })
 

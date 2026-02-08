@@ -7,7 +7,12 @@ call ddc#custom#patch_global(#{
 	    \   ]
 	    \ })
 
-call ddc#custom#patch_global('sources', ['buffer', "file", "rg", 'vsnip', 'lsp'])
+call pum#set_option(#{
+	    \	max_height: 30,
+	    \	max_width: 100
+	    \ })
+
+call ddc#custom#patch_global('sources', ['lsp', 'file', 'buffer', "rg", 'vsnip'])
 
 call ddc#custom#patch_global('sourceOptions', {
 	    \	'_': {
@@ -37,7 +42,7 @@ call ddc#custom#patch_global('sourceOptions', {
 	    \	'cmdline_history': {
 	    \	    'mark': 'cmdhis',
 	    \	    "minAutoCompleteLength": 1,
-	    \	    "maxItems": 10
+	    \	    "maxItems": 1000
 	    \	},
 	    \	'file': {
 	    \	    'mark': '',
@@ -105,14 +110,17 @@ call ddc#custom#patch_global('cmdlineSources', {
 nnoremap :  <Cmd>call CommandlinePre()<CR>:
 
 function! CommandlinePre() abort
-    cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-    cnoremap <C-j>   <Cmd>call pum#map#insert_relative(+1)<CR>
-    cnoremap <C-k>   <Cmd>call pum#map#insert_relative(-1)<CR>
-    cnoremap <C-f>   <Cmd>call pum#map#insert_relative_page(+1)<CR>
-    cnoremap <C-b>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
-    cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-    cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-    cnoremap <C-p>   <cmd>call ddc#map#manual_complete({
+    cnoremap <Tab>	<Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <C-n>   	<Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <C-j>   	<Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <S-Tab>	<Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-p>   	<Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-k>   	<Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-f>   	<Cmd>call pum#map#insert_relative_page(+1)<CR>
+    cnoremap <C-b>   	<Cmd>call pum#map#insert_relative_page(-1)<CR>
+    cnoremap <C-y>   	<Cmd>call pum#map#confirm()<CR>
+    cnoremap <C-e>   	<Cmd>call pum#map#cancel()<CR>
+    cnoremap <C-o>   	<cmd>call ddc#map#manual_complete({
 	\   "cmdlineSources": {
 	\	':': ["cmdline_history"]
 	\   }
@@ -126,13 +134,14 @@ endfunction
 
 function! CommandlinePost() abort
     silent! cunmap <Tab>
-    silent! cunmap <S-Tab>
     silent! cunmap <C-n>
     silent! cunmap <C-j>
+    silent! cunmap <S-Tab>
+    silent! cunmap <C-p>
     silent! cunmap <C-k>
     silent! cunmap <C-y>
     silent! cunmap <C-e>
-    silent! cunmap <C-p>
+    silent! cunmap <C-o>
 endfunction
 
 call ddc#custom#patch_filetype('ddu-ff', 'ui', 'none') 

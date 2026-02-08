@@ -5,9 +5,15 @@ repo="rebelot/kanagawa.nvim"
 [[plugins]]
 repo="nvim-treesitter/nvim-treesitter"
 
+[[plugins]]
+repo="nvim-treesitter/nvim-treesitter-context"
+
 
 [[plugins]]
 repo="neovim/nvim-lspconfig"
+
+[[plugins]]
+repo="ray-x/lsp_signature.nvim"
 
 
 [[plugins]]

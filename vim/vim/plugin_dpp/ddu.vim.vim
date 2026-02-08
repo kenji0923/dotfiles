@@ -117,11 +117,11 @@ call ddu#custom#patch_global({
 	\       	"winCol": 1,
 	\       	"floatingBorder": "rounded", 
 	\		"previewFloating": v:true,
-	\		"previewSplit": "vertical",
 	\       	'previewHeight': &lines - 6,
 	\       	'previewWidth': &columns /2 - 3 ,
 	\       	'previewRow': 3,
 	\		"previewCol": &columns / 2 + 1,
+	\		"previewSplit": "vertical",
 	\       	'previewFloatingBorder': "rounded",
 	\		"startAutoAction": v:true,
 	\		'autoAction': { 'name': 'preview' }
