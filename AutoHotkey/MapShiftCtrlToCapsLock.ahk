@@ -1,4 +1,4 @@
-+Ctrl::
+#Ctrl::
 {
     SetCapsLockState !GetKeyState("CapsLock", "T")
 }
