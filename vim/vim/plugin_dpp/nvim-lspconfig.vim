@@ -10,6 +10,7 @@ pcall(vim.keymap.del, 'n', 'grr')
 pcall(vim.keymap.del, 'n', 'grt')
 
 vim.lsp.enable('basedpyright')
+vim.lsp.enable('clangd')
 
 vim.opt.updatetime = 500
 
