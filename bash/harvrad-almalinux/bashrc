@@ -1,6 +1,7 @@
 # Link dotfiles/bash to ~/.bash
 
 export PATH=~/.node/gen/node_modules/.bin:/usr/local/neovim/bin:/usr/local/vim/bin:~/.local/bin:/home/kshu/.dotnet/tools:$PATH
+. /usr/local/root/bin/thisroot.sh
 
 alias vim=nvim
 
