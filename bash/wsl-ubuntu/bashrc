@@ -3,7 +3,7 @@
 # Remove Windows paths from PATH to improve completion speed
 PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '^/mnt/c' | tr '\n' ':' | sed 's/:$//')
 
-export PATH=~/local/bin:/usr/local/tmux/bin:/usr/local/neovim/bin:/usr/local/root/bin:/usr/local/vim/bin:$PATH
+export PATH=~/local/bin:/usr/local/tmux/bin:/usr/local/neovim/bin:/usr/local/root/bin:/usr/local/vim/bin:~/.cargo/bin:$PATH
 
 alias vim=nvim
 
@@ -45,3 +45,6 @@ nvm_lazy_load() {
 for cmd in nvm node npm npx; do
     eval "$cmd() { nvm_lazy_load $cmd \"\$@\"; }"
 done
+
+# Added by Antigravity CLI installer
+export PATH="/home/kshu/.local/bin:$PATH"
