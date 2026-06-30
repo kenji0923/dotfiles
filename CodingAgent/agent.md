@@ -5,4 +5,8 @@
 ## C++
 - Follow C++17 standard.
 - Follow Google C++ coding style.
-- When projects are using CERN ROOT library, use https://github.com/kenji0923/roothelper.git for data management and plot formating. If this repo is not present, prompt user to add this submodule.
+- If reasonable follow project structure defined in https://github.com/kenji0923/cppprojbuilder. Usually be in .local/cppprojbuilder or somewhere. If not present, prompt the user.
+### CERN ROOT
+- When projects are using CERN ROOT library, use https://github.com/kenji0923/roothelper for data management and plot formating. If this repo is not present, prompt the user.
+- Use sentence case for axes titles.
+- Default linewidth should be 1.
