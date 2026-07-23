@@ -10,3 +10,6 @@
 - When projects are using CERN ROOT library, use https://github.com/kenji0923/roothelper for data management and plot formating. If this repo is not present, prompt the user.
 - Use sentence case for axes titles.
 - Default linewidth should be 1.
+
+# Document rules
+- For general purpose documents, prepare them in html for human readability.
