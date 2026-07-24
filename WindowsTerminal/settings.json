@@ -93,7 +93,8 @@
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
+                "source": "Windows.Terminal.PowershellCore",
+                "startingDirectory": null
             },
             {
                 "guid": "{2bfb1916-f304-5c22-966c-10eef877f8e7}",
@@ -111,15 +112,16 @@
                 "guid": "{28733cfa-4b39-5036-986d-6984af506088}",
                 "hidden": false,
                 "name": "Ubuntu",
-                "source": "Microsoft.WSL"
+                "source": "Microsoft.WSL",
+                "suppressApplicationTitle": false
             },
-	    {
-		"guid": "{17da3cac-b318-431e-8a3e-7fcdefe6d114}",
-		"name": "MSYS2 Bash",
-		"commandline": "C:/Users/kshu/scoop/apps/msys2/current/msys2_shell.cmd -defterm -here -no-start -msys",
-		"icon": "C:/Users/kshu/scoop/apps/msys2/current/msys2.ico",
-		"startingDirectory": "C:/Users/kshu/scoop/apps/msys2/current/home/%USERNAME%"
-	    }
+            {
+                "commandline": "C:/Users/kshu/scoop/apps/msys2/current/msys2_shell.cmd -defterm -here -no-start -msys",
+                "guid": "{17da3cac-b318-431e-8a3e-7fcdefe6d114}",
+                "icon": "C:/Users/kshu/scoop/apps/msys2/current/msys2.ico",
+                "name": "MSYS2 Bash",
+                "startingDirectory": "C:/Users/kshu/scoop/apps/msys2/current/home/%USERNAME%"
+            }
         ]
     },
     "schemes": [],
