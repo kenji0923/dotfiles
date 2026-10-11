@@ -87,8 +87,16 @@ OtherKeyDown(ownVk) {
     ; 先に押されていたCtrlなども検出し、離す順序による誤発火を防ぐ。
     ; 0x12は左右共通のAltなので、左右別の0xA4/0xA5で判定する。
     Loop 254 {
-        if A_Index != ownVk && A_Index != 0x12
-            && GetKeyState(Format("vk{:02X}", A_Index), "P")
+        if A_Index = ownVk || A_Index = 0x12
+            continue
+
+        keyName := Format("vk{:02X}", A_Index)
+        ; リモート接続では未割り当てのvk9Eなどに押下状態が残ることがある。
+        ; マウスボタン以外は、スキャンコードを持つキーだけを判定する。
+        if A_Index > 6 && !GetKeySC(keyName)
+            continue
+
+        if GetKeyState(keyName, "P")
             return true
     }
     return false
