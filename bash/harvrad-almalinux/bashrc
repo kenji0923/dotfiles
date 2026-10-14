@@ -17,7 +17,23 @@ fi
 
 . "$HOME/.deno/env"
 
-# Auto-start ssh-agent
+# Auto-start ssh-agent: one shared agent per user on a fixed socket.
+# (The old version spawned a new agent on every login and never stopped it,
+#  which left thousands of logind sessions stuck in "closing".)
 if [ -z "$SSH_AUTH_SOCK" ]; then
-   eval $(ssh-agent -s) > /dev/null
+    export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/tmp}/ssh-agent.$USER.sock"
+    ssh-add -l >/dev/null 2>&1
+    if [ $? -eq 2 ]; then   # 2 = no agent reachable on that socket (0/1 = agent is running)
+        rm -f "$SSH_AUTH_SOCK"
+        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+    fi
 fi
+
+export PETSC_DIR=/opt/petsc
+export PETSC_ARCH_DEBUG=arch-linux-c-debug
+export PETSC_ARCH_OPT=arch-linux-c-opt 
+export SLEPC_DIR=/opt/slepc
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kshu/.local/bin:$PATH"
